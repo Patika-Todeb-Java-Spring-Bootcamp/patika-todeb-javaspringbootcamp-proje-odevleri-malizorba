@@ -1,4 +1,4 @@
-package com.example.usedstaffsaleapplication.model;
+package com.example.usedstaffsaleapplication.model.Enums;
 
 public enum LanguageOptions {
     ENGLISH,

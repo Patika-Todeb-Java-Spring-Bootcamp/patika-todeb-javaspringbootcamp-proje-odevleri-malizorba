@@ -1,13 +1,14 @@
 package com.example.usedstaffsaleapplication.model.Entity;
 
-import com.example.usedstaffsaleapplication.model.AdvertType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.usedstaffsaleapplication.model.Enums.AdvertCategory;
+import com.example.usedstaffsaleapplication.model.Enums.LanguageOptions;
+import com.example.usedstaffsaleapplication.model.Enums.SubCategories;
+import com.example.usedstaffsaleapplication.model.Enums.UsingofStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -31,14 +32,27 @@ public  class Advert {
     @Column(name = "explain")
     private String explain;
 
+    @Enumerated
+    private AdvertCategory advertCategory;
 
-   // private List<AdvertCategory> advertCategoryList;
-   // private double advertPoint;
-    //private String advertComments;
+    @Enumerated
+    private SubCategories subCategories;
+
+    @Enumerated
+    private UsingofStatus usingofStatus;
+
+    @Enumerated
+    private LanguageOptions languageOptions;
+
+    private double advertPoint;
+
+    private String advertComments;
 
 
-   // private List<AdvertType> advertTypeList;
-    //private List<String>keywords;
+
+
+
+
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "stnadard_users_id", referencedColumnName = "id")
@@ -46,7 +60,7 @@ public  class Advert {
 
 
    //private List<LanguageOptions> languageOptionsList;
-    //private int countofReview;
+    private int countofReview;
 
 
 

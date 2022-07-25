@@ -9,14 +9,14 @@ public class AdvertMapper {
         AdvertDTO advertDTO=new AdvertDTO();
 
 
-       // advertDTO.setAdvertCategoryList(advert.getAdvertCategoryList());
-        //advertDTO.setAdvertTypeList(advert.getAdvertTypeList());
-        //advertDTO.setKeywords(advert.getKeywords());
-        //advertDTO.setCountofReview(advert.getCountofReview());
-        advertDTO.setLocation(advert.getLocation());
-        advertDTO.setPrice(advert.getPrice());
-        //advertDTO.setLanguageOptionsList(advert.getLanguageOptionsList());
-        advertDTO.setTitle(advert.getTitle());
+       advertDTO.setLanguageOptions(advert.getLanguageOptions());
+       advertDTO.setAdvertCategory(advert.getAdvertCategory());
+       advertDTO.setSubCategories(advert.getSubCategories());
+       advertDTO.setUsingofStatus(advert.getUsingofStatus());
+       advertDTO.setLocation(advert.getLocation());
+       advertDTO.setPrice(advert.getPrice());
+       advertDTO.setTitle(advert.getTitle());
+       advertDTO.setExplain(advert.getTitle());
 
 
         return advertDTO;
@@ -25,14 +25,14 @@ public class AdvertMapper {
         Advert advert=new Advert();
 
 
-        //advert.setAdvertCategoryList(advertDTO.getAdvertCategoryList());
-        //advert.setAdvertTypeList(advertDTO.getAdvertTypeList());
-        //advert.setKeywords(advertDTO.getKeywords());
-        //advert.setCountofReview(advertDTO.getCountofReview());
+        advert.setLanguageOptions(advertDTO.getLanguageOptions());
+        advert.setAdvertCategory(advertDTO.getAdvertCategory());
+        advert.setSubCategories(advertDTO.getSubCategories());
+        advert.setUsingofStatus(advertDTO.getUsingofStatus());
         advert.setLocation(advertDTO.getLocation());
         advert.setPrice(advertDTO.getPrice());
-        //advert.setLanguageOptionsList(advertDTO.getLanguageOptionsList());
         advert.setTitle(advertDTO.getTitle());
+        advert.setExplain(advertDTO.getExplain());
 
         return advert;
     }

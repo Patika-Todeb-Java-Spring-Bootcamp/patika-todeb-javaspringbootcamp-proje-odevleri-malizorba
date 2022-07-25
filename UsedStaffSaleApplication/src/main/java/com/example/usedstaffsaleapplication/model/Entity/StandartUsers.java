@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 @Data
 @NoArgsConstructor
@@ -27,6 +28,14 @@ public class StandartUsers extends Users {
     @OneToMany( cascade = CascadeType.ALL)
     @JoinColumn(name = "favorite_adverts",referencedColumnName = "id")
     private List<StandartUsers> FavoriteIdList;
+
+  @OneToMany(cascade = CascadeType.MERGE)
+  @JoinColumn(name = "sold_of_advert",referencedColumnName = "id")
+  private List<StandartUsers> advertsSold;
+
+  @OneToMany(cascade = CascadeType.MERGE)
+  @JoinColumn(name = "bought_of_advert",referencedColumnName = "id")
+  private List<StandartUsers> advertsBought;
 
 
 }

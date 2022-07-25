@@ -1,8 +1,9 @@
 package com.example.usedstaffsaleapplication.model.DTO;
 
-import com.example.usedstaffsaleapplication.model.AdvertCategory;
-import com.example.usedstaffsaleapplication.model.AdvertType;
-import com.example.usedstaffsaleapplication.model.LanguageOptions;
+import com.example.usedstaffsaleapplication.model.Enums.AdvertCategory;
+import com.example.usedstaffsaleapplication.model.Enums.LanguageOptions;
+import com.example.usedstaffsaleapplication.model.Enums.SubCategories;
+import com.example.usedstaffsaleapplication.model.Enums.UsingofStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,8 +16,10 @@ public class AdvertDTO {
     private String title;
     private String location;
     private Float price;
-    private List<AdvertCategory> advertCategoryList;
-    private List<AdvertType> advertTypeList;
-    private List<LanguageOptions> languageOptionsList;
+    private AdvertCategory advertCategory;
+    private SubCategories subCategories;
+    private  UsingofStatus usingofStatus;
+    private LanguageOptions languageOptions;
+    private String explain;
 
 }
