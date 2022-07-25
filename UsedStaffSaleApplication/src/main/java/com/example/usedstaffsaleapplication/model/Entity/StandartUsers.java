@@ -1,39 +1,32 @@
 package com.example.usedstaffsaleapplication.model.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class StandartUsers extends Users {
   @Id
   private Long id;
 
-  @OneToMany(cascade = CascadeType.MERGE)
-    @JoinTable(
-        name = "Users_Advert",
-        joinColumns = {
-          @JoinColumn(name = "Users_id")
-},
-        inverseJoinColumns = {
-          @JoinColumn(name = "Advert_id")
-        }
-)
-  private List<Advert> advertList;
+    @JsonIgnore
+    @OneToMany(mappedBy = "StandartUsers", cascade = CascadeType.MERGE)
+        private List<Advert> advertList;
 
 
-  /*@OneToMany(cascade = CascadeType.ALL)
- @JoinTable(
-         name = "FavoriteIdList_adverts",
-         joinColumns = {
-                 @JoinColumn(name = "FavoritedIdList_StandartUsers_id")
-         },
-         inverseJoinColumns = {
-                 @JoinColumn(name = "adverts_id")
-         }
- )
-
-  private List<Long> FavoriteIdList; */
+    @OneToMany( cascade = CascadeType.ALL)
+    @JoinColumn(name = "favorite_adverts",referencedColumnName = "id")
+    private List<StandartUsers> FavoriteIdList;
 
 
 }
