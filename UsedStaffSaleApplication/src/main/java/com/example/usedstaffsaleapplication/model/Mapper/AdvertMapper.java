@@ -16,7 +16,7 @@ public class AdvertMapper {
        advertDTO.setLocation(advert.getLocation());
        advertDTO.setPrice(advert.getPrice());
        advertDTO.setTitle(advert.getTitle());
-       advertDTO.setExplain(advert.getTitle());
+       advertDTO.setExplain(advert.getExplain());
 
 
         return advertDTO;

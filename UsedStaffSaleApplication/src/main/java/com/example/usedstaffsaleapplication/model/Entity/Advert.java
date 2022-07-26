@@ -47,13 +47,6 @@ public  class Advert {
     private double advertPoint;
 
     private String advertComments;
-
-
-
-
-
-
-
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "stnadard_users_id", referencedColumnName = "id")
    private StandartUsers StandartUsers;

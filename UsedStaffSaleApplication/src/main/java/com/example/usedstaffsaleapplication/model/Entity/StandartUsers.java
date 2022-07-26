@@ -20,6 +20,17 @@ public class StandartUsers extends Users {
   @Id
   private Long id;
 
+  @Column(name = "name")
+  private String name;
+
+  @Column(name = "surname")
+  private String surname;
+
+  @Column(name = "email")
+  private String email;
+  @Column(name = "phone_number")
+  private long phoneNumber;
+
     @JsonIgnore
     @OneToMany(mappedBy = "StandartUsers", cascade = CascadeType.MERGE)
         private List<Advert> advertList;
