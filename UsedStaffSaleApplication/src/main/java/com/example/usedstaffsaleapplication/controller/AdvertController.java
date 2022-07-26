@@ -22,14 +22,11 @@ public class AdvertController {
     }
     @GetMapping("/{id}")
     public ResponseEntity getAdvertbyId(@PathVariable("id") Long id){
-        Advert byid;
-        try {
-             byid = advertService.getByid(id);
-        }catch (RuntimeException exception){
-            return ResponseEntity.status(404).body(id);
-        }
+        Advert byid = advertService.getByid(id);
+        return ResponseEntity.status(HttpStatus.OK).body(byid);
 
-        return ResponseEntity.status(200).body(id);
+
+
     }
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody AdvertDTO advert) {
@@ -42,16 +39,9 @@ public class AdvertController {
     }
    @DeleteMapping
     public ResponseEntity deleteAdvert (@RequestParam(name = "id")Long id){
-       try{
-           advertService.delete(id);
-       }
-
-        catch (RuntimeException exception){
-           return ResponseEntity.status(404).body(id);
-       }
-        return ResponseEntity.status(HttpStatus.OK).body("Advert was deleted");
-
-        }
+       advertService.delete(id);
+       return ResponseEntity.status(HttpStatus.OK).body("Advert was deleted");
+    }
         @PutMapping("/{title}")
     public ResponseEntity update(
             @PathVariable String title,

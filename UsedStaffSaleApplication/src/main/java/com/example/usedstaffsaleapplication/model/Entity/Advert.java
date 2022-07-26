@@ -4,11 +4,13 @@ import com.example.usedstaffsaleapplication.model.Enums.AdvertCategory;
 import com.example.usedstaffsaleapplication.model.Enums.LanguageOptions;
 import com.example.usedstaffsaleapplication.model.Enums.SubCategories;
 import com.example.usedstaffsaleapplication.model.Enums.UsingofStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -51,8 +53,12 @@ public  class Advert {
     @JoinColumn(name = "stnadard_users_id", referencedColumnName = "id")
    private StandartUsers StandartUsers;
 
+   /* @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "favorite_adverts")
+    private List<StandartUsers> useroffav; */
 
-   //private List<LanguageOptions> languageOptionsList;
+
+    //private List<LanguageOptions> languageOptionsList;
     //private int countofReview;
 
 

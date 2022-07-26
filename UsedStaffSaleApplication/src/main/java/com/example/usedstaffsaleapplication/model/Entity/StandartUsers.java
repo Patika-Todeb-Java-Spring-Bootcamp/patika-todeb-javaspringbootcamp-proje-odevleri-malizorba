@@ -1,6 +1,7 @@
 package com.example.usedstaffsaleapplication.model.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,18 +48,8 @@ public class StandartUsers extends Users {
     private List<Advert> advertList;
 
 
-  @ManyToMany(cascade = CascadeType.MERGE)
-  @JoinTable(
-          name = "Advert_of_Favorite",
-          joinColumns = {
-                  @JoinColumn(name = "users_id")
-          },
-          inverseJoinColumns = {
-                  @JoinColumn(name = "favorite_adverts_id")
-          }
-  )
-    private List<Advert> FavoriteIdList;
 
+  @JsonIgnore
   @OneToMany(cascade = CascadeType.MERGE)
   @JoinColumn(name = "sold_of_advert",referencedColumnName = "id")
   private List<StandartUsers> advertsSold;
@@ -68,25 +59,4 @@ public class StandartUsers extends Users {
   private List<StandartUsers> advertsBought;
 
 
-  @ManyToMany
-  private Collection<Advert> adverts;
-
-  public Collection<Advert> getAdverts() {
-    return adverts;
-  }
-
-  public void setAdverts(Collection<Advert> adverts) {
-    this.adverts = adverts;
-  }
-
-  @ManyToMany
-  private Collection<Advert> adverts_of_favorites;
-
-  public Collection<Advert> getAdverts_of_favorites() {
-    return adverts_of_favorites;
-  }
-
-  public void setAdverts_of_favorites(Collection<Advert> adverts_of_favorites) {
-    this.adverts_of_favorites = adverts_of_favorites;
-  }
 }

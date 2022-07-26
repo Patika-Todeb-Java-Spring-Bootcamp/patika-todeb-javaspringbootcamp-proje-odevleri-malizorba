@@ -1,6 +1,7 @@
 package com.example.usedstaffsaleapplication.service;
 
 
+import com.example.usedstaffsaleapplication.Exception.EntityNotFoundException;
 import com.example.usedstaffsaleapplication.model.Entity.Advert;
 import com.example.usedstaffsaleapplication.model.DTO.AdvertDTO;
 import com.example.usedstaffsaleapplication.model.Mapper.AdvertMapper;
@@ -35,7 +36,7 @@ public class AdvertService {
     }
     public Advert getByid (Long id){
         Optional<Advert> byId = advertRepository.findById(id);
-        return byId.orElseThrow(()-> new RuntimeException("Advert not found"));
+        return byId.orElseThrow(()-> new EntityNotFoundException("Advert not found"));
 
     }
     public Advert create(AdvertDTO advertDTO){
@@ -50,7 +51,7 @@ public class AdvertService {
     public Advert update(String title,AdvertDTO advert) {
         Optional <Advert> advertByTitle = advertRepository.findAdvertByTitle(title);
         if (!advertByTitle.isPresent())
-            return null;
+            throw new EntityNotFoundException("There is nothing to update");
             Advert updated = advertByTitle.get();
             if (!StringUtils.isEmpty(advert.getTitle())) {
                 updated.setTitle(advert.getTitle());
