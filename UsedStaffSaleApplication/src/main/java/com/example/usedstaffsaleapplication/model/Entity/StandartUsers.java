@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 @Data
 @NoArgsConstructor
@@ -31,14 +32,32 @@ public class StandartUsers extends Users {
   @Column(name = "phone_number")
   private long phoneNumber;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "StandartUsers", cascade = CascadeType.MERGE)
-        private List<Advert> advertList;
+    //@JsonIgnore
+    //@OneToMany(mappedBy = "StandartUsers", cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "Adverts_of_Users",
+            joinColumns = {
+                    @JoinColumn(name = "users_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "adverts_id")
+            }
+    )
+    private List<Advert> advertList;
 
 
-    @OneToMany( cascade = CascadeType.ALL)
-    @JoinColumn(name = "favorite_adverts",referencedColumnName = "id")
-    private List<StandartUsers> FavoriteIdList;
+  @ManyToMany(cascade = CascadeType.MERGE)
+  @JoinTable(
+          name = "Advert_of_Favorite",
+          joinColumns = {
+                  @JoinColumn(name = "users_id")
+          },
+          inverseJoinColumns = {
+                  @JoinColumn(name = "favorite_adverts_id")
+          }
+  )
+    private List<Advert> FavoriteIdList;
 
   @OneToMany(cascade = CascadeType.MERGE)
   @JoinColumn(name = "sold_of_advert",referencedColumnName = "id")
@@ -49,4 +68,25 @@ public class StandartUsers extends Users {
   private List<StandartUsers> advertsBought;
 
 
+  @ManyToMany
+  private Collection<Advert> adverts;
+
+  public Collection<Advert> getAdverts() {
+    return adverts;
+  }
+
+  public void setAdverts(Collection<Advert> adverts) {
+    this.adverts = adverts;
+  }
+
+  @ManyToMany
+  private Collection<Advert> adverts_of_favorites;
+
+  public Collection<Advert> getAdverts_of_favorites() {
+    return adverts_of_favorites;
+  }
+
+  public void setAdverts_of_favorites(Collection<Advert> adverts_of_favorites) {
+    this.adverts_of_favorites = adverts_of_favorites;
+  }
 }

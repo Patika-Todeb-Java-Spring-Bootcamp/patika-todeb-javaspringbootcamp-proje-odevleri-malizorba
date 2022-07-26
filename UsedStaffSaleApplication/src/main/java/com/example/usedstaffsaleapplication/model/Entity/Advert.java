@@ -53,7 +53,7 @@ public  class Advert {
 
 
    //private List<LanguageOptions> languageOptionsList;
-    private int countofReview;
+    //private int countofReview;
 
 
 
