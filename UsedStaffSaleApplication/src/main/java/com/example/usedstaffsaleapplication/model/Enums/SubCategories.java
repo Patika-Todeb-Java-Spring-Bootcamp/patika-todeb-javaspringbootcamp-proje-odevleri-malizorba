@@ -1,5 +1,7 @@
 package com.example.usedstaffsaleapplication.model.Enums;
 
+import org.springframework.security.core.GrantedAuthority;
+
 public enum SubCategories {
     GLASSES,
     WATCH,
@@ -11,5 +13,7 @@ public enum SubCategories {
     PC,
     TV,
     PLAYSTATION,
+    ;
+
 
 }
