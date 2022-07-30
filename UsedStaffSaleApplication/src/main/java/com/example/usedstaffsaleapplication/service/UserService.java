@@ -61,43 +61,51 @@ public class UserService {
         }
     }
 
-    public String signup(User user) {
-        if (!userRepository.existsByUsername(user.getUsername())) {
+    public String signup(User user,boolean isAdmin) {
+       /* if (!userRepository.existsByUsername(user.getUsername())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-           // Optional<Role> relatedRole = RoleRepository.findByName(isAdmin ? "ROLE_ADMIN" : "ROLE_USER");
-           List<Role> relatedRole=new ArrayList<>();
-           relatedRole.add(Role.PREMIUM_CLIENT);
-           relatedRole.add(Role.PREMIUM_CLIENT);
-           relatedRole.add(Role.ROLE_STANDARD_CLIENT);
-            for (Role a:relatedRole  ) {
-                if (a== Role.ROLE_ADMIN){
-                    user.setRoles(Collections.singletonList(a));
-                    return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+            List<Role> relatedRole = new ArrayList<>();
+            relatedRole.add(Role.PREMIUM_CLIENT);
+            relatedRole.add(Role.PREMIUM_CLIENT);
+            relatedRole.add(Role.ROLE_STANDARD_CLIENT);
+
+            for (Role a : relatedRole) {
+                if (a == Role.ROLE_ADMIN) {
+                    user.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
+
+
+                } else if (a == Role.PREMIUM_CLIENT) {
+                    userRepository.save(user);
+                    user.setRoles(Collections.singletonList(Role.PREMIUM_CLIENT));
+
+                } else if (a == Role.ROLE_STANDARD_CLIENT) {
+                    userRepository.save(user);
+                    user.setRoles(Collections.singletonList(Role.ROLE_STANDARD_CLIENT));
 
                 }
-                else if (a== Role.ROLE_STANDARD_CLIENT){
-                    userRepository.save(user);
-                    return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
-                }
-                else if (a== Role.PREMIUM_CLIENT){
-                    userRepository.save(user);
-                    return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
-                }
-                else {
-                    throw new CustomJwtException("Username is already in use", HttpStatus.BAD_REQUEST);
-                }
+
 
             }
-            // İF WE HAVE TWO ROLES WE CAN DO AS DOWN
-            //Role role = isAdmin ? Role.ROLE_ADMIN :  Role.ROLE_STANDARD_CLIENT;
-            //user.setRoles(Collections.singletonList(role));
-            //userRepository.save(user);
-            //return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
-       // } else {
-           // throw new CustomJwtException("Username is already in use", HttpStatus.BAD_REQUEST);
-        }
-        return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+            return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
 
+        }
+
+        else {
+            throw new CustomJwtException("Username is already in use", HttpStatus.BAD_REQUEST);
+        }*/
+        // Optional<Role> relatedRole = RoleRepository.findByName(isAdmin ? "ROLE_ADMIN" : "ROLE_USER");
+
+
+        // İF WE HAVE TWO ROLES WE CAN DO AS DOWN
+        if (!userRepository.existsByUsername(user.getUsername())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            Role role = isAdmin ? Role.ROLE_ADMIN : Role.ROLE_STANDARD_CLIENT;
+            user.setRoles(Collections.singletonList(role));
+            userRepository.save(user);
+            return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+        } else {
+            throw new CustomJwtException("Username is already in use", HttpStatus.BAD_REQUEST);
+        }
     }
 
     public void delete(String username) {

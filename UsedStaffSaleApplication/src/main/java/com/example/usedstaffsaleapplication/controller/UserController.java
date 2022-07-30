@@ -19,6 +19,8 @@ import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.apache.coyote.http11.Constants.a;
+
 @Validated
 @RestController
 @RequestMapping("/users")
@@ -27,7 +29,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_STANDARD_CLIENT') OR hasRole('PREMIUM_CLIENT')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_STANDARD_CLIENT')")
     @GetMapping
     public List<User> getAllUsers() {
         return userService.getAll();
@@ -46,7 +48,7 @@ public class UserController {
         user.setEmail(userDataDTO.getEmail());
         user.setPassword(userDataDTO.getPassword());
 //        return userService.signup(modelMapper.map(user, User.class));
-        return userService.signup(user);//, false
+        return userService.signup(user,false);//, false
     }
 
     //    @PreAuthorize("hasRole('ROLE_ADMIN')")

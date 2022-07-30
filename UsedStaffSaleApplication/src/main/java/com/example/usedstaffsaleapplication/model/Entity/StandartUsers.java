@@ -48,15 +48,42 @@ public class StandartUsers extends Users {
     private List<Advert> advertList;
 
 
+  @ManyToMany(cascade = CascadeType.MERGE)
+  @JoinTable(
+          name = "Adverts_of_fav",
+          joinColumns = {
+                  @JoinColumn(name = "users_id")
+          },
+          inverseJoinColumns = {
+                  @JoinColumn(name = "favorite_adverts_id")
+          }
+  )
+  private List<Advert> adversoffav;
 
-  @JsonIgnore
-  @OneToMany(cascade = CascadeType.MERGE)
-  @JoinColumn(name = "sold_of_advert",referencedColumnName = "id")
-  private List<StandartUsers> advertsSold;
 
-  @OneToMany(cascade = CascadeType.MERGE)
-  @JoinColumn(name = "bought_of_advert",referencedColumnName = "id")
-  private List<StandartUsers> advertsBought;
 
+  /*@JsonBackReference
+  @ManyToOne(cascade = CascadeType.MERGE)
+  @JoinColumn(name = "users_id_that_bought")
+  private  Advert advertofbought; */
+
+
+
+  //@JsonIgnore
+  //@OneToMany(cascade = CascadeType.MERGE)
+  //@JoinColumn(name = "sold_of_advert",referencedColumnName = "id")
+  //private List<Advert> advertsSold;
+
+ // @OneToMany(cascade = CascadeType.MERGE)
+  //@JoinColumn(name = "bought_of_advert",referencedColumnName = "id")
+  //private List<StandartUsers> advertsBought;
+
+  //@OneToMany(fetch = FetchType.LAZY, mappedBy = "favoriteadverts", cascade = CascadeType.ALL)
+  //private List<Advert> advertsoffav;
+
+
+  /*@OneToMany(cascade = CascadeType.MERGE)
+  @JoinColumn(name = "favorite_advert",referencedColumnName = "id")
+  private List<Advert> adverts; */
 
 }

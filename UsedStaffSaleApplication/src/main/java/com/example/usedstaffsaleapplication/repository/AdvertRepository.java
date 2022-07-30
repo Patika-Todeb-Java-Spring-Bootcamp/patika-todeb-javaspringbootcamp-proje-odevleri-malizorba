@@ -13,6 +13,8 @@ public interface AdvertRepository extends JpaRepository<Advert,Long> {
         //JPQL
     Optional<Advert> findAdvertByTitle(String title);
 
+
+
     //List<Advert> GetAllByDetailsContainingIgnoreCase(String title);
 
     //List<Advert> getAllByPriceIsLessThan (Float price);
