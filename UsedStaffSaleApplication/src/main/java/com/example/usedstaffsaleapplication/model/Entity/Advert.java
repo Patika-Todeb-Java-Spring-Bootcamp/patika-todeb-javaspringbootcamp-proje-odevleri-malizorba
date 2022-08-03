@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -18,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "_Advert")
-public  class Advert {
+public  class Advert implements Serializable {
     @Column(name = "title")
     private String title;
 
@@ -55,7 +56,7 @@ public  class Advert {
     private StandartUsers standartUsers;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "adverts")
+    @ManyToMany(mappedBy = "favoriteAdverts")
     private List<StandartUsers> standartUsersList;
 
 //    @JsonBackReference

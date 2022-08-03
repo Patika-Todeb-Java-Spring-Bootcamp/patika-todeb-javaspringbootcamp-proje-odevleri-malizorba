@@ -19,7 +19,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "standard_users")
-public class StandartUsers extends Users  {
+public class StandartUsers extends Users implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -56,7 +56,7 @@ public class StandartUsers extends Users  {
                   @JoinColumn(name = "advert_id")
           }
   )
-  private List<Advert> adverts ;
+  private List<Advert> favoriteAdverts;
 
 
 

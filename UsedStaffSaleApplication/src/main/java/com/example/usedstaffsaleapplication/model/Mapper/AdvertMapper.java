@@ -19,6 +19,7 @@ public class AdvertMapper {
        advertDTO.setExplain(advert.getExplain());
 
 
+
         return advertDTO;
     }
     public static Advert toEntity(AdvertDTO advertDTO){
@@ -33,6 +34,7 @@ public class AdvertMapper {
         advert.setPrice(advertDTO.getPrice());
         advert.setTitle(advertDTO.getTitle());
         advert.setExplain(advertDTO.getExplain());
+
 
         return advert;
     }

@@ -1,5 +1,6 @@
 package com.example.usedstaffsaleapplication.model.DTO;
 
+import com.example.usedstaffsaleapplication.model.Entity.StandartUsers;
 import com.example.usedstaffsaleapplication.model.Enums.AdvertCategory;
 import com.example.usedstaffsaleapplication.model.Enums.LanguageOptions;
 import com.example.usedstaffsaleapplication.model.Enums.SubCategories;
@@ -21,5 +22,6 @@ public class AdvertDTO {
     private  UsingofStatus usingofStatus;
     private LanguageOptions languageOptions;
     private String explain;
+
 
 }
