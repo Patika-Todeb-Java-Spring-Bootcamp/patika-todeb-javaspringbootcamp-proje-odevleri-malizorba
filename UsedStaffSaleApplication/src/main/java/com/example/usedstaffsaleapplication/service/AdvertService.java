@@ -2,8 +2,8 @@ package com.example.usedstaffsaleapplication.service;
 
 
 import com.example.usedstaffsaleapplication.Exception.EntityNotFoundException;
-import com.example.usedstaffsaleapplication.model.Entity.Advert;
 import com.example.usedstaffsaleapplication.model.DTO.AdvertDTO;
+import com.example.usedstaffsaleapplication.model.Entity.Advert;
 import com.example.usedstaffsaleapplication.model.Mapper.AdvertMapper;
 import com.example.usedstaffsaleapplication.repository.AdvertRepository;
 import lombok.RequiredArgsConstructor;

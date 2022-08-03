@@ -2,11 +2,10 @@ package com.example.usedstaffsaleapplication.service;
 
 import com.example.usedstaffsaleapplication.Exception.CustomJwtException;
 import com.example.usedstaffsaleapplication.Exception.EntityNotFoundException;
-import com.example.usedstaffsaleapplication.model.Entity.User;
+import com.example.usedstaffsaleapplication.model.Entity.Account;
 import com.example.usedstaffsaleapplication.model.Enums.Role;
-import com.example.usedstaffsaleapplication.model.Enums.SubCategories;
 //import com.example.usedstaffsaleapplication.repository.RoleRepository;
-import com.example.usedstaffsaleapplication.repository.UserRepository;
+import com.example.usedstaffsaleapplication.repository.AccountRepository;
 import com.example.usedstaffsaleapplication.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,15 +17,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class AccountService {
 
-    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
 
    // private final RoleRepository roleRepository;
 
@@ -47,21 +45,21 @@ public class UserService {
 //        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
 //        userRepository.save(admin);
 //    }
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<Account> getAll() {
+        return accountRepository.findAll();
     }
 
     public String signin(String username, String password) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 //            return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
-            return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+            return jwtTokenProvider.createToken(username, accountRepository.findByUsername(username).getRoles());
         } catch (AuthenticationException e) {
             throw new CustomJwtException("Invalid username/password supplied", HttpStatus.BAD_REQUEST);
         }
     }
 
-    public String signup(User user,boolean isAdmin) {
+    public String signup(Account account, boolean isAdmin) {
        /* if (!userRepository.existsByUsername(user.getUsername())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             List<Role> relatedRole = new ArrayList<>();
@@ -97,41 +95,41 @@ public class UserService {
 
 
         // İF WE HAVE TWO ROLES WE CAN DO AS DOWN
-        if (!userRepository.existsByUsername(user.getUsername())) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (!accountRepository.existsByUsername(account.getUsername())) {
+            account.setPassword(passwordEncoder.encode(account.getPassword()));
             Role role = isAdmin ? Role.ROLE_ADMIN : Role.ROLE_STANDARD_CLIENT;
-            user.setRoles(Collections.singletonList(role));
-            userRepository.save(user);
-            return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+            account.setRoles(Collections.singletonList(role));
+            accountRepository.save(account);
+            return jwtTokenProvider.createToken(account.getUsername(), account.getRoles());
         } else {
             throw new CustomJwtException("Username is already in use", HttpStatus.BAD_REQUEST);
         }
     }
 
     public void delete(String username) {
-        User byUsername = userRepository.findByUsername(username);
+        Account byUsername = accountRepository.findByUsername(username);
         if (byUsername == null) {
             throw new EntityNotFoundException( "username : " + username);
         } else if (byUsername.getRoles().contains(Role.ROLE_ADMIN)) {
             throw new AccessDeniedException("No permission to delete user : " + username);
         }
-        userRepository.deleteByUsername(username);
+        accountRepository.deleteByUsername(username);
     }
 
-    public User search(String username) {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
+    public Account search(String username) {
+        Account account = accountRepository.findByUsername(username);
+        if (account == null) {
             throw new CustomJwtException("The user doesn't exist", HttpStatus.NOT_FOUND);
         }
-        return user;
+        return account;
     }
 
-    public User whoami(HttpServletRequest req) {
-        return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
+    public Account whoami(HttpServletRequest req) {
+        return accountRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
     }
 
     public String refresh(String username) {
-        return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+        return jwtTokenProvider.createToken(username, accountRepository.findByUsername(username).getRoles());
     }
 
 }

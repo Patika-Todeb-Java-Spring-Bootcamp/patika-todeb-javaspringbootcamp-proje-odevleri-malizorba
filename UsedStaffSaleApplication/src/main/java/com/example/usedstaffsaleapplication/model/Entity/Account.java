@@ -1,7 +1,6 @@
 package com.example.usedstaffsaleapplication.model.Entity;
 
 import com.example.usedstaffsaleapplication.model.Enums.Role;
-import com.example.usedstaffsaleapplication.model.Enums.SubCategories;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +20,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "USERS")
-public class User {
+@Table(name = "account")
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +37,7 @@ public class User {
     @Size(min = 5, message = "Minimum password length: 5 characters")
     private String password;
 
-    public User(String username, String email, String password) {
+    public Account(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -51,6 +50,8 @@ public class User {
 //    public Set<Role> roles;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+
 
 
 }

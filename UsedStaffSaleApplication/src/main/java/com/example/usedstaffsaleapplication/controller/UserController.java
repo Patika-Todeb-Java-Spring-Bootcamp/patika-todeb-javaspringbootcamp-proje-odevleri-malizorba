@@ -1,9 +1,9 @@
 package com.example.usedstaffsaleapplication.controller;
 
-import com.example.usedstaffsaleapplication.model.DTO.UserDataDTO;
-import com.example.usedstaffsaleapplication.model.DTO.UserLoginDTO;
-import com.example.usedstaffsaleapplication.model.Entity.User;
-import com.example.usedstaffsaleapplication.service.UserService;
+import com.example.usedstaffsaleapplication.model.DTO.AccountDataDTO;
+import com.example.usedstaffsaleapplication.model.DTO.AccountLoginDTO;
+import com.example.usedstaffsaleapplication.model.Entity.Account;
+import com.example.usedstaffsaleapplication.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -19,43 +19,41 @@ import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
-import static org.apache.coyote.http11.Constants.a;
-
 @Validated
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private AccountService accountService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_STANDARD_CLIENT')")
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAll();
+   // @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_STANDARD_CLIENT')")
+    @GetMapping("/all")
+    public List<Account> getAllUsers() {
+        return accountService.getAll();
     }
 
     @PostMapping("/signin")
-    public String login(@Valid @RequestBody UserLoginDTO userLoginDTO) {
-        return userService.signin(userLoginDTO.getUsername(), userLoginDTO.getPassword());
+    public String login(@Valid @RequestBody AccountLoginDTO accountLoginDTO) {
+        return accountService.signin(accountLoginDTO.getUsername(), accountLoginDTO.getPassword());
     }
 
     @PostMapping("/signup")
 
-    public String signup(@RequestBody @Valid UserDataDTO userDataDTO) {
-        User user = new User();
-        user.setUsername(userDataDTO.getUsername());
-        user.setEmail(userDataDTO.getEmail());
-        user.setPassword(userDataDTO.getPassword());
+    public String signup(@RequestBody @Valid AccountDataDTO accountDataDTO) {
+        Account account = new Account();
+        account.setUsername(accountDataDTO.getUsername());
+        account.setEmail(accountDataDTO.getEmail());
+        account.setPassword(accountDataDTO.getPassword());
 //        return userService.signup(modelMapper.map(user, User.class));
-        return userService.signup(user,false);//, false
+        return accountService.signup(account,false);//, false
     }
 
-    //    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RolesAllowed("ROLE_ADMIN")
     @DeleteMapping(value = "/delete/{username}")
     public String delete(@PathVariable String username) {
-        userService.delete(username);
+        accountService.delete(username);
         return username;
     }
 

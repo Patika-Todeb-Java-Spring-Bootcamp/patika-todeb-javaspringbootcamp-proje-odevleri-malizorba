@@ -5,6 +5,7 @@ import com.example.usedstaffsaleapplication.model.Enums.LanguageOptions;
 import com.example.usedstaffsaleapplication.model.Enums.SubCategories;
 import com.example.usedstaffsaleapplication.model.Enums.UsingofStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -46,14 +47,25 @@ public  class Advert {
     @Enumerated
     private LanguageOptions languageOptions;
 
-    private double advertPoint;
-
-    private String advertComments;
 
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "stnadard_users_id", referencedColumnName = "id")
-   private StandartUsers StandartUsers;
+    @JoinColumn(name = "standard_users_id")
+    private StandartUsers standartUsers;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "adverts")
+    private List<StandartUsers> standartUsersList;
+
+//    @JsonBackReference
+//    @ManyToOne
+//    private  StandartUsers standartUsersList;
+
+
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "adverts_of_fav")
+//    private StandartUsers standartUserss;
 
     /*OneToMany(mappedBy = "advertofbought",cascade = CascadeType.ALL)
     private List <StandartUsers> users; */

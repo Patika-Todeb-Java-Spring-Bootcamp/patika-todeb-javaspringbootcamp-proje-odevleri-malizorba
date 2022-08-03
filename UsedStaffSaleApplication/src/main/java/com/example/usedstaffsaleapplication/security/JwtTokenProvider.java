@@ -2,7 +2,6 @@ package com.example.usedstaffsaleapplication.security;
 
 import com.example.usedstaffsaleapplication.Exception.CustomJwtException;
 import com.example.usedstaffsaleapplication.model.Enums.Role;
-import com.example.usedstaffsaleapplication.model.Enums.SubCategories;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -38,7 +37,7 @@ public class JwtTokenProvider {
     private long validityInMilliseconds; // = 1000 * 60 * 60 * 24; // 1 day
 
     @Autowired
-    private MyUserDetails myUserDetails;
+    private MyAccountDetails myAccountDetails;
 
     @PostConstruct
     protected void init() {
@@ -63,7 +62,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = myUserDetails.loadUserByUsername(getUsername(token));
+        UserDetails userDetails = myAccountDetails.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 

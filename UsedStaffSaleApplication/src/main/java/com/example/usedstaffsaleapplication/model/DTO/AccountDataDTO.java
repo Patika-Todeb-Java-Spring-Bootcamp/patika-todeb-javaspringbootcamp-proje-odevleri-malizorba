@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Data
-public class UserDataDTO implements Serializable {
+public class AccountDataDTO implements Serializable {
 
     @Size(min = 5, max = 15)
     private String username;

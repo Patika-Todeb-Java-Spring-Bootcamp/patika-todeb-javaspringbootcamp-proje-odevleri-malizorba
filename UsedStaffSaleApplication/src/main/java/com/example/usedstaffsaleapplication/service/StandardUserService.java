@@ -10,29 +10,35 @@ import com.example.usedstaffsaleapplication.model.Mapper.StandardUserMapper;
 import com.example.usedstaffsaleapplication.repository.AdvertRepository;
 import com.example.usedstaffsaleapplication.repository.StandardUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class StandardUserService {
+public class StandardUserService  {
 
     private final StandardUserRepository standardUserRepository;
 
     private final AdvertRepository advertRepository;
+    private final AdvertService advertService;
+
 
     public StandartUsers getById(Long id){
         Optional<StandartUsers> ById=standardUserRepository.findById(id);
         return ById.orElseThrow(()-> new EntityNotFoundException("There is no user with this id"));
     }
 
+
     public StandartUsers getByName(String name){
         Optional<StandartUsers>getname=standardUserRepository.findStandartUsersByName(name);
         return getname.orElseThrow(()-> new EntityNotFoundException("Advert not found"));
     }
+
 
     public List<StandartUsers> getAllstandartUsers(){
         List<StandartUsers>getall=standardUserRepository.findAll();
@@ -52,15 +58,18 @@ public class StandardUserService {
         return getByContainofAdvertFavList.orElseThrow(()-> new EntityNotFoundException("there is no fav list that is not contain advert that entered"));
     }*/
 
+
     public StandartUsers create (StandardUserDto standardUserDto){
         StandartUsers standartUsers = StandardUserMapper.toEntity(standardUserDto);
         return standardUserRepository.save(standartUsers);
     }
+
     public void delete(Long id){
         getById(id);
         standardUserRepository.deleteById(id);
 
     }
+
 
     public StandartUsers update(String email,StandardUserDto standardUserDto){
        Optional<StandartUsers> standartUsersByEmail=standardUserRepository.findStandartUsersByEmail(email);
@@ -82,16 +91,22 @@ public class StandardUserService {
         return standardUserRepository.save(updated);
 
     }
+
     public StandartUsers addFavoriteAdvertList(Long id, Advert advert) {
         StandartUsers standartUsers = getById(id);
-        Optional<Advert> AdvertById = advertRepository.findById(advert.getId());
-        if (!AdvertById.isPresent()) {
-            throw new EntityNotFoundException("There is no advert to add");
-        }
-            Advert advert1=AdvertById.get();
-            standartUsers.setAdversoffav((List<Advert>) advert1);
-            return standardUserRepository.save(standartUsers);
+        Advert addAvert= advertService.getByid(advert.getId());
+        List<Advert> adverts=standartUsers.getAdvertList();
+        adverts.add(addAvert);
+        return standardUserRepository.save(standartUsers);
 
+    }
+
+    public StandartUsers addAdvert (Long id,Advert advert){
+        StandartUsers standartUsers=getById(id);
+        Advert advert1=advertService.getByid(advert.getId());
+        List<Advert> advertList=standartUsers.getAdvertList();
+        advertList.add(advert1);
+        return standardUserRepository.save(standartUsers);
     }
 
 }

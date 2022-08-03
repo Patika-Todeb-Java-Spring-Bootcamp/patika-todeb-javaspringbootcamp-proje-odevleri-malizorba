@@ -1,7 +1,8 @@
 package com.example.usedstaffsaleapplication.security;
 
-import com.example.usedstaffsaleapplication.model.Entity.User;
-import com.example.usedstaffsaleapplication.repository.UserRepository;
+import com.example.usedstaffsaleapplication.model.Entity.Account;
+import com.example.usedstaffsaleapplication.model.Entity.Account;
+import com.example.usedstaffsaleapplication.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,22 +11,22 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MyUserDetails implements UserDetailsService {
+public class MyAccountDetails implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        Account account = accountRepository.findByUsername(username);
 
-        if (user == null) {
-            throw new UsernameNotFoundException("User '" + username + "' not found");
+        if (account == null) {
+            throw new UsernameNotFoundException("Account '" + username + "' not found");
         }
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(username)
-                .password(user.getPassword())
-                .authorities(user.getRoles())
+                .password(account.getPassword())
+                .authorities(account.getRoles())
                 .accountExpired(false)
                 .accountLocked(false)
                 .credentialsExpired(false)

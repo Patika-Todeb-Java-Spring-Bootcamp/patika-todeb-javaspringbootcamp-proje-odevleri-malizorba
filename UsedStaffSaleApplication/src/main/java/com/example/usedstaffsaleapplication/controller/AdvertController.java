@@ -6,6 +6,7 @@ import com.example.usedstaffsaleapplication.service.AdvertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,11 +16,13 @@ public class AdvertController {
     @Autowired
     private AdvertService advertService;
 
+    @PreAuthorize(("hasRole('ROLE_ADMIN') or hasRole('ROLE_STANDARD_CLIENT')"))
     @GetMapping("/all")
     public ResponseEntity getAllAdverts(){
         List<Advert>Alladverts=advertService.getAllAdverts();
         return ResponseEntity.ok(Alladverts);
     }
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
     @GetMapping("/{id}")
     public ResponseEntity getAdvertbyId(@PathVariable("id") Long id){
         Advert byid = advertService.getByid(id);
@@ -28,6 +31,7 @@ public class AdvertController {
 
 
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_STANDARD_CLIENT')")
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody AdvertDTO advert) {
         Advert repsAdvert = advertService.create(advert);
@@ -37,11 +41,14 @@ public class AdvertController {
         return ResponseEntity.status(HttpStatus.CREATED).body(repsAdvert);
 
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_STANDARD_CLIENT')")
    @DeleteMapping
     public ResponseEntity deleteAdvert (@RequestParam(name = "id")Long id){
        advertService.delete(id);
        return ResponseEntity.status(HttpStatus.OK).body("Advert was deleted");
     }
+
+    @PreAuthorize("hasRole('ROLE_STANDARD_CLIENT')")
         @PutMapping("/{title}")
     public ResponseEntity update(
             @PathVariable String title,
@@ -55,10 +62,7 @@ public class AdvertController {
         }
 
 
-
-
-
-    }
+}
 
 
 

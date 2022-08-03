@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,9 +18,10 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "users")
-public class StandartUsers extends Users {
+@Table(name = "standard_users")
+public class StandartUsers extends Users  {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "name")
@@ -33,32 +35,42 @@ public class StandartUsers extends Users {
   @Column(name = "phone_number")
   private long phoneNumber;
 
-    //@JsonIgnore
-    //@OneToMany(mappedBy = "StandartUsers", cascade = CascadeType.MERGE)
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(
-            name = "Adverts_of_Users",
-            joinColumns = {
-                    @JoinColumn(name = "users_id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "adverts_id")
-            }
-    )
-    private List<Advert> advertList;
+//  @OneToMany(fetch = FetchType.LAZY)
+//  @JoinTable(
+//          name = "Favorite_adverts",
+//          joinColumns = {
+//                  @JoinColumn(name = "standard_user_id")
+//          },
+//          inverseJoinColumns = {
+//                  @JoinColumn(name = "advert_id")
+//          }
+//  )
 
-
-  @ManyToMany(cascade = CascadeType.MERGE)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
-          name = "Adverts_of_fav",
+          name = "favorite_adverts",
           joinColumns = {
-                  @JoinColumn(name = "users_id")
+                  @JoinColumn(name = "standard_user_id")
           },
           inverseJoinColumns = {
-                  @JoinColumn(name = "favorite_adverts_id")
+                  @JoinColumn(name = "advert_id")
           }
   )
-  private List<Advert> adversoffav;
+  private List<Advert> adverts ;
+
+
+
+  //@JsonIgnore
+
+  @OneToMany(mappedBy = "standartUsers", cascade = CascadeType.ALL)
+  private List<Advert> advertList;
+
+//@JsonIgnore
+// @ManyToOne( cascade = CascadeType.MERGE)
+// @JoinColumn(name = "favorite_advert_id",referencedColumnName = "id")
+// private Advert adversoffav;
+
+
 
 
 

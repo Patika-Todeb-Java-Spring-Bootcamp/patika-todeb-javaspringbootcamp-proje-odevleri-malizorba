@@ -10,11 +10,11 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Users {
 
-    private String name;
+  /* private String name;
 
     private String surname;
 
     private String email;
 
-    private long phoneNumber;
+    private long phoneNumber;*/
 }
