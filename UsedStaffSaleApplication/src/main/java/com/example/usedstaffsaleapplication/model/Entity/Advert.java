@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,10 +17,11 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+//@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "_Advert")
-public  class Advert implements Serializable {
+public  class Advert  {
     @Column(name = "title")
     private String title;
 
@@ -58,6 +60,7 @@ public  class Advert implements Serializable {
     @JsonIgnore
     @ManyToMany(mappedBy = "favoriteAdverts")
     private List<StandartUsers> standartUsersList;
+
 
 //    @JsonBackReference
 //    @ManyToOne

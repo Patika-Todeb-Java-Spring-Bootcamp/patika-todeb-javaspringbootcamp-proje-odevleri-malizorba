@@ -5,10 +5,13 @@ import com.example.usedstaffsaleapplication.model.Enums.AdvertCategory;
 import com.example.usedstaffsaleapplication.model.Enums.LanguageOptions;
 import com.example.usedstaffsaleapplication.model.Enums.SubCategories;
 import com.example.usedstaffsaleapplication.model.Enums.UsingofStatus;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+
 
 @Getter
 @Setter
