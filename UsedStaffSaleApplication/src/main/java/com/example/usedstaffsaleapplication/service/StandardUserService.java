@@ -2,19 +2,15 @@ package com.example.usedstaffsaleapplication.service;
 
 import com.example.usedstaffsaleapplication.Exception.EntityNotFoundException;
 import com.example.usedstaffsaleapplication.model.DTO.StandardUserDto;
-
 import com.example.usedstaffsaleapplication.model.Entity.Advert;
 import com.example.usedstaffsaleapplication.model.Entity.StandartUsers;
-
 import com.example.usedstaffsaleapplication.model.Mapper.StandardUserMapper;
 import com.example.usedstaffsaleapplication.repository.AdvertRepository;
 import com.example.usedstaffsaleapplication.repository.StandardUserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +24,7 @@ public class StandardUserService  {
     private final AdvertService advertService;
 
 
-    public StandartUsers getById(Long id){
+    public  StandartUsers getById(Long id){
         Optional<StandartUsers> ById=standardUserRepository.findById(id);
         return ById.orElseThrow(()-> new EntityNotFoundException("There is no user with this id"));
     }

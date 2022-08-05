@@ -1,8 +1,6 @@
 package com.example.usedstaffsaleapplication.model.Entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 @Data
 @NoArgsConstructor
@@ -35,16 +31,7 @@ public class StandartUsers extends Users implements Serializable {
   @Column(name = "phone_number")
   private long phoneNumber;
 
-//  @OneToMany(fetch = FetchType.LAZY)
-//  @JoinTable(
-//          name = "Favorite_adverts",
-//          joinColumns = {
-//                  @JoinColumn(name = "standard_user_id")
-//          },
-//          inverseJoinColumns = {
-//                  @JoinColumn(name = "advert_id")
-//          }
-//  )
+
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
@@ -62,7 +49,7 @@ public class StandartUsers extends Users implements Serializable {
 
   //@JsonIgnore
 
-  @OneToMany(mappedBy = "standartUsers", cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "standartUsers")
   private List<Advert> advertList;
 
 //@JsonIgnore

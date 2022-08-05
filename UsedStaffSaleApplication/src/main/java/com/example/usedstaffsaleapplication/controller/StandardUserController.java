@@ -21,7 +21,7 @@ public class StandardUserController {
 
 
     @GetMapping({"{id}"})
-    public ResponseEntity geyById(@PathVariable ("id") Long id){
+    public ResponseEntity getById(@PathVariable ("id") Long id){
         StandartUsers Byid=standardUserService.getById(id);
        return ResponseEntity.status(HttpStatus.OK).body(id);
     }
@@ -72,12 +72,12 @@ public class StandardUserController {
         StandartUsers standartUsers=standardUserService.addFavoriteAdvertList(id, advert);
         return ResponseEntity.status(HttpStatus.OK).body(standartUsers);
     }
-    @PutMapping("/add/advert/users/{id}")
+    @PutMapping("/addAdvert/users/{id}")
     public ResponseEntity addAdvert(
             @PathVariable Long id,
             @RequestBody Advert advert){
-        standardUserService.addAdvert(id,advert);
-        return ResponseEntity.status(HttpStatus.OK).body("Advert that you want add your advert list");
+        StandartUsers standartUsers=standardUserService.addAdvert(id, advert);
+        return ResponseEntity.status(HttpStatus.OK).body(standartUsers);
     }
 
 

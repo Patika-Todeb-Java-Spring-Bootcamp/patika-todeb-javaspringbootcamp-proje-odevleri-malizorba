@@ -4,15 +4,12 @@ import com.example.usedstaffsaleapplication.model.Enums.AdvertCategory;
 import com.example.usedstaffsaleapplication.model.Enums.LanguageOptions;
 import com.example.usedstaffsaleapplication.model.Enums.SubCategories;
 import com.example.usedstaffsaleapplication.model.Enums.UsingofStatus;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -52,9 +49,13 @@ public  class Advert  {
 
 
 
-    @JsonBackReference
+
+
+
+    //    @JsonBackReference
+
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "standard_users_id")
+//    @JoinColumn(name = "standard_users_id")
     private StandartUsers standartUsers;
 
     @JsonIgnore
@@ -89,6 +90,14 @@ public  class Advert  {
 
     //private List<LanguageOptions> languageOptionsList;
     //private int countofReview;
+
+    public StandartUsers getStandartUsers() {
+        return standartUsers;
+    }
+
+    public void setStandartUsers(StandartUsers standartUsers) {
+        this.standartUsers = standartUsers;
+    }
 
 
 
