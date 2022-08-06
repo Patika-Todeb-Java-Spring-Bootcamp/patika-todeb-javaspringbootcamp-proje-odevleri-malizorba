@@ -137,9 +137,9 @@ class AdvertServiceTest {
 
     private List<Advert> getSampleAdvertsTest() {
         List<Advert> expectedAdvertDB = new ArrayList<>();
-        Advert advert = new Advert("title", 1L, "Mersin", 5697654.0F, "explain", AdvertCategory.ELECTRONICDEVICES, SubCategories.DISHWASHER, null, null,null);
-        Advert advert2 = new Advert("title2", 3L, "Mersin2", 985654.0F, "explain2", AdvertCategory.ELECTRONICDEVICES, SubCategories.DISHWASHER, null, null, null);
-        Advert advert1 = new Advert("title1", 2L, "Mersin1", 5698554.0F, "explain1", AdvertCategory.ELECTRONICDEVICES, SubCategories.DISHWASHER, null, null, null);
+        Advert advert = new Advert("title", 1L, "Mersin", 5697654.0F, "explain", AdvertCategory.ELECTRONICDEVICES, SubCategories.DISHWASHER, null, null);
+        Advert advert2 = new Advert("title2", 3L, "Mersin2", 985654.0F, "explain2", AdvertCategory.ELECTRONICDEVICES, SubCategories.DISHWASHER, null, null);
+        Advert advert1 = new Advert("title1", 2L, "Mersin1", 5698554.0F, "explain1", AdvertCategory.ELECTRONICDEVICES, SubCategories.DISHWASHER, null, null);
         expectedAdvertDB.add(advert);
         expectedAdvertDB.add(advert1);
         expectedAdvertDB.add(advert2);

@@ -34,8 +34,7 @@ public class StandartUsers extends Users implements Serializable {
 
 
 
-
-  @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
   private List<Advert> advertList;
 
   @OneToMany(cascade = CascadeType.ALL)

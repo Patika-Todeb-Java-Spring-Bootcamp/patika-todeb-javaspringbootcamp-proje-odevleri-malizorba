@@ -9,7 +9,7 @@ public class WelcomeController {
 
     @GetMapping(name = "welcome",
 
-            path = "/welcome"
+            path = "/api/welcome"
     )
     public ResponseModel welcomeMessageApi(){
         String welcomeMessage="Welcome to Application";

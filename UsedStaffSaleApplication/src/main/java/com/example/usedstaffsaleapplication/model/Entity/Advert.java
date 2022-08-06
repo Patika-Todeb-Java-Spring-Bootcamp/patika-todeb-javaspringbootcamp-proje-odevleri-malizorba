@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -50,10 +49,10 @@ public  class Advert  {
 
 
 
-
-    @ManyToMany(cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "standard_users_id")
-    private List<StandartUsers> standartUsers;
+//    @JsonIgnore
+//    @ManyToMany(cascade = CascadeType.MERGE)
+////    @JoinColumn(name = "standard_users_id")
+//    private List<StandartUsers> standartUsers;
 
 
 
