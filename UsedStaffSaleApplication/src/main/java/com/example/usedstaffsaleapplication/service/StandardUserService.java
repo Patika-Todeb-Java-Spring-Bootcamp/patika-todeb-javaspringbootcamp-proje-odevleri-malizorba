@@ -88,14 +88,14 @@ public class StandardUserService  {
 
     }
 
-    public StandartUsers addFavoriteAdvertList(Long id, Advert advert) {
-        StandartUsers standartUsers = getById(id);
-        Advert addAvert= advertService.getByid(advert.getId());
-        List<Advert> adverts=standartUsers.getFavoriteAdverts();
-        adverts.add(addAvert);
-        return standardUserRepository.save(standartUsers);
-
-    }
+//    public StandartUsers addFavoriteAdvertList(Long id, Advert advert) {
+//        StandartUsers standartUsers = getById(id);
+//        Advert addAvert= advertService.getByid(advert.getId());
+//        List<Advert> adverts=standartUsers.getFavoriteAdverts();
+//        adverts.add(addAvert);
+//        return standardUserRepository.save(standartUsers);
+//
+//    }
 
     public StandartUsers addAdvert (Long id,Advert advert){
         StandartUsers standartUsers=getById(id);

@@ -5,18 +5,20 @@ import com.example.usedstaffsaleapplication.model.DTO.AdvertCommentDTO;
 import com.example.usedstaffsaleapplication.model.Entity.AdvertComment;
 import com.example.usedstaffsaleapplication.model.Mapper.AdvertCommentsMapper;
 import com.example.usedstaffsaleapplication.repository.AdvertCommentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class AdvertCommentService {
 
-    private AdvertCommentsMapper advertCommentsMapper;
+    private final AdvertCommentsMapper advertCommentsMapper;
 
 
-    private AdvertCommentRepository advertCommentRepository;
+    private final AdvertCommentRepository advertCommentRepository;
 
     public List<AdvertComment> getAllAdvertsComments(){
         List<AdvertComment> allAdvertComments = advertCommentRepository.findAll();
@@ -42,8 +44,9 @@ public class AdvertCommentService {
 
     public AdvertComment create(AdvertCommentDTO advertCommentDTO){
         AdvertComment advertComment = advertCommentsMapper.toEntity(advertCommentDTO);
-        AdvertComment advertComment1 = advertCommentRepository.save(advertComment);
-        return advertComment1;
+        AdvertComment save = advertCommentRepository.save(advertComment);
+        return save;
+
     }
 
     public void delete(Long id){

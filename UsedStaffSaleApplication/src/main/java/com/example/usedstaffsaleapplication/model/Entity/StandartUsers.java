@@ -33,24 +33,13 @@ public class StandartUsers extends Users implements Serializable {
 
 
 
-  @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(
-          name = "favorite_adverts",
-          joinColumns = {
-                  @JoinColumn(name = "standard_user_id")
-          },
-          inverseJoinColumns = {
-                  @JoinColumn(name = "advert_id")
-          }
-  )
-  private List<Advert> favoriteAdverts;
 
 
-
-  //@JsonIgnore
-
-  @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "standartUsers")
+  @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
   private List<Advert> advertList;
+
+  @OneToMany(cascade = CascadeType.ALL)
+  private List<AdvertComment> advertCommentList;
 
 //@JsonIgnore
 // @ManyToOne( cascade = CascadeType.MERGE)

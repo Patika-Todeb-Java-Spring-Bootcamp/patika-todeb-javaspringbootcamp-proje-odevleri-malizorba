@@ -3,17 +3,18 @@ package com.example.usedstaffsaleapplication.controller;
 import com.example.usedstaffsaleapplication.model.DTO.AdvertCommentDTO;
 import com.example.usedstaffsaleapplication.model.Entity.AdvertComment;
 import com.example.usedstaffsaleapplication.service.AdvertCommentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/comment")
 @RestController
+@RequiredArgsConstructor
 public class AdvertCommentController {
 
-    @Autowired
-    private AdvertCommentService advertCommentservice;
+
+   private final AdvertCommentService advertCommentservice;
 
     @GetMapping("/all")
     public ResponseEntity getAllAdvertComments() {

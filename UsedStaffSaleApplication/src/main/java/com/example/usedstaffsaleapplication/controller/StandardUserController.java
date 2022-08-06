@@ -4,20 +4,20 @@ import com.example.usedstaffsaleapplication.model.DTO.StandardUserDto;
 import com.example.usedstaffsaleapplication.model.Entity.Advert;
 import com.example.usedstaffsaleapplication.model.Entity.StandartUsers;
 import com.example.usedstaffsaleapplication.service.StandardUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/StandartUser")
+@RequiredArgsConstructor
 public class StandardUserController {
 
-    @Autowired
-    StandardUserService standardUserService;
+
+  private final StandardUserService standardUserService;
 
 
     @GetMapping({"{id}"})
@@ -65,13 +65,13 @@ public class StandardUserController {
 
     }
 
-    @PutMapping("/addfav/users/{id}")
-    public ResponseEntity addFavoriteList(
-            @PathVariable Long id,
-            @RequestBody Advert advert) {
-        StandartUsers standartUsers=standardUserService.addFavoriteAdvertList(id, advert);
-        return ResponseEntity.status(HttpStatus.OK).body(standartUsers);
-    }
+//    @PutMapping("/addfav/users/{id}")
+//    public ResponseEntity addFavoriteList(
+//            @PathVariable Long id,
+//            @RequestBody Advert advert) {
+//        StandartUsers standartUsers=standardUserService.addFavoriteAdvertList(id, advert);
+//        return ResponseEntity.status(HttpStatus.OK).body(standartUsers);
+//    }
     @PutMapping("/addAdvert/users/{id}")
     public ResponseEntity addAdvert(
             @PathVariable Long id,

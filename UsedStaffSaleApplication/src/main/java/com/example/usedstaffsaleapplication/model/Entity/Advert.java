@@ -4,7 +4,6 @@ import com.example.usedstaffsaleapplication.model.Enums.AdvertCategory;
 import com.example.usedstaffsaleapplication.model.Enums.LanguageOptions;
 import com.example.usedstaffsaleapplication.model.Enums.SubCategories;
 import com.example.usedstaffsaleapplication.model.Enums.UsingofStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,9 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "_Advert")
+
 public  class Advert  {
+
     @Column(name = "title")
     private String title;
 
@@ -50,54 +51,11 @@ public  class Advert  {
 
 
 
-
-
-    //    @JsonBackReference
-
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.MERGE)
 //    @JoinColumn(name = "standard_users_id")
-    private StandartUsers standartUsers;
-
-    @JsonIgnore
-    @ManyToMany(mappedBy = "favoriteAdverts")
-    private List<StandartUsers> standartUsersList;
+    private List<StandartUsers> standartUsers;
 
 
-//    @JsonBackReference
-//    @ManyToOne
-//    private  StandartUsers standartUsersList;
-
-
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "adverts_of_fav")
-//    private StandartUsers standartUserss;
-
-    /*OneToMany(mappedBy = "advertofbought",cascade = CascadeType.ALL)
-    private List <StandartUsers> users; */
-
-    //@JsonBackReference
-    //@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    //@JoinColumn(name = "favorite_adverts")
-    //private StandartUsers favoriteadverts;
-
-
-
-
-   /* @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "favorite_adverts")
-    private List<StandartUsers> useroffav; */
-
-
-    //private List<LanguageOptions> languageOptionsList;
-    //private int countofReview;
-
-    public StandartUsers getStandartUsers() {
-        return standartUsers;
-    }
-
-    public void setStandartUsers(StandartUsers standartUsers) {
-        this.standartUsers = standartUsers;
-    }
 
 
 

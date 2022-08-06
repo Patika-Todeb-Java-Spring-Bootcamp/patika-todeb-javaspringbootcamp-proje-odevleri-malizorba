@@ -8,11 +8,11 @@
         <version>2.7.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.todeb.rsakin</groupId>
-    <artifactId>course-management-application</artifactId>
+    <groupId>com.example</groupId>
+    <artifactId>UsedStaffSaleApplication</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>course-management-application</name>
-    <description>course-management-application</description>
+    <name>UsedStaffSaleApplication</name>
+    <description>UsedStaffSaleApplication</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>

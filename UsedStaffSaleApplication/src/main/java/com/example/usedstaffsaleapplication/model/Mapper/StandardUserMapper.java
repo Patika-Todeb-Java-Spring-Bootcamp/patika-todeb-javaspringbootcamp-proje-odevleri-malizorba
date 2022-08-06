@@ -9,7 +9,7 @@ public class StandardUserMapper {
         StandardUserDto standardUserDto=new StandardUserDto();
 
         standardUserDto.setAdvertList(standartUsers.getAdvertList());
-        standardUserDto.setFavoriteAdverts(standartUsers.getFavoriteAdverts());
+
         standardUserDto.setEmail(standartUsers.getEmail());
         standardUserDto.setName(standartUsers.getName());
         standardUserDto.setPhoneNumber(standartUsers.getPhoneNumber());
@@ -26,7 +26,7 @@ public class StandardUserMapper {
         standartUsers.setName(standardUserDto.getName());
         standartUsers.setPhoneNumber(standardUserDto.getPhoneNumber());
         standartUsers.setAdvertList(standardUserDto.getAdvertList());
-        standartUsers.setFavoriteAdverts(standardUserDto.getFavoriteAdverts());
+
 
         return standartUsers;
 
