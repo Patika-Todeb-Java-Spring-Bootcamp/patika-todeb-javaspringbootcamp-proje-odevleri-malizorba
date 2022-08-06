@@ -1,6 +1,7 @@
 package com.example.usedstaffsaleapplication.controller;
 
 import com.example.usedstaffsaleapplication.Exception.handler.GenericExceptionHandler;
+import com.example.usedstaffsaleapplication.model.DTO.StandardUserDto;
 import com.example.usedstaffsaleapplication.model.Entity.StandartUsers;
 import com.example.usedstaffsaleapplication.service.StandardUserService;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -19,6 +20,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
@@ -26,8 +31,12 @@ import java.util.Comparator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 @RequiredArgsConstructor
@@ -62,9 +71,9 @@ class StandardUserControllerTest {
         List<StandartUsers> expectedStandardUser = getSampleList();
 
         // stub - given
-        Mockito.when(standardUserService.getById(1L)).thenReturn(expectedStandardUser.get(0));
+        when(standardUserService.getById(1L)).thenReturn(expectedStandardUser.get(0));
 
-        MockHttpServletResponse response = mockMvc.perform(get("/usedstaffsale-app/api/StandartUser/1")
+        MockHttpServletResponse response = mockMvc.perform(get("/api/StandartUser/1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andReturn().getResponse();
@@ -81,20 +90,20 @@ class StandardUserControllerTest {
         List<StandartUsers> expectedStandardUsers = getSampleList();
 
         // stub - given
-        Mockito.when(standardUserService.getByName("mali")).thenReturn(expectedStandardUsers.get(0));
+        when(standardUserService.getByName("mali")).thenReturn(expectedStandardUsers.get(0));
 
-        MockHttpServletResponse response = mockMvc.perform(get("/usedstaffsale-app/api/StandartUser/mali")
+        MockHttpServletResponse response = mockMvc.perform(get("/api/StandartUser/mali")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andReturn().getResponse();
 
         // then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 
-        List<StandartUsers> actualStandardUsers= standardUserService.getAllstandartUsers();
+        StandartUsers actualStandardUser = new ObjectMapper().readValue(response.getContentAsString(), StandartUsers.class);
         //StandartUsers actualStandardUser = new ObjectMapper().readValue(response.getContentAsString(), StandartUsers.class);
 
-        Assert.assertEquals(expectedStandardUsers.get(0).getName(), actualStandardUsers.get(0).getName());
+        Assert.assertEquals(expectedStandardUsers.get(0).getName(), actualStandardUser.getName());
 //        assertEquals(expectedPrelectors.get(0).getLastName(), actualPrelector.getLastName());
 //        assertEquals(expectedPrelectors.get(0).getEmail(), actualPrelector.getEmail());
 
@@ -107,9 +116,9 @@ class StandardUserControllerTest {
 
 
         //stub given
-        Mockito.when(standardUserService.getAllstandartUsers()).thenReturn(expectedStandartUser);
+        when(standardUserService.getAllstandartUsers()).thenReturn(expectedStandartUser);
 
-        MockHttpServletResponse response = mockMvc.perform(get("/usedstaffsale-app/api/StandartUser/all")
+        MockHttpServletResponse response = mockMvc.perform(get("/api/StandartUser/all")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andReturn().getResponse();
@@ -125,15 +134,44 @@ class StandardUserControllerTest {
     }
 
     @Test
-    void create() {
+    void create() throws Exception {
+        StandartUsers standartUsers = getSampleList().get(0);
+        ObjectMapper enteredJson = new ObjectMapper();
+        String enteredStandardUSer = enteredJson.writeValueAsString(standartUsers);
+
+        // stub - given
+        when(standardUserService.create(Mockito.any(StandardUserDto.class))).thenReturn(standartUsers);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/StandartUser/create")
+                .accept(MediaType.APPLICATION_JSON)
+                .content(enteredStandardUSer)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = result.getResponse();
+        String createdStandardUser = response.getContentAsString();
+
+        // then
+        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+        assertThat(createdStandardUser).isEqualTo(enteredStandardUSer);
     }
+
 
     @Test
     void update() {
     }
 
     @Test
-    void delete() {
+    void delete() throws Exception {
+        // init test values
+        willDoNothing().given(standardUserService).delete(1L);
+
+        // stub - given
+        ResultActions response = mockMvc.perform(delete("/api/StandartUser/delete?id=1"));
+
+        // then
+        response.andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test
