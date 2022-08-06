@@ -25,8 +25,17 @@ Used Staff Sale Application:
 ### User/Admin can update information of StandardUser.
 ### Admin manage all users.
 
+#### Swagger
+[http://localhost:8090/swagger-ui/index.htm]http://localhost:8090/swagger-ui/index.html)
+
 
 ## Design
 
 
 ![DatabaseRelation](https://user-images.githubusercontent.com/97551928/183254604-e1d1522d-f75f-4b0a-87c2-d2665727b773.PNG)
+_________________________________________________________________________________________________________________________________
+
+![Use-Case](https://user-images.githubusercontent.com/97551928/183261655-cf8833a7-7e52-4d56-a963-c70ccbd3ba7c.PNG)
+
+
+
