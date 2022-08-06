@@ -4,26 +4,29 @@ patika-todeb-javaspringbootcamp-proje-odevleri-malizorba created by GitHub Class
 Used Staff Sale Application:
 
 ## Requirements:
-### Kategori
+### Category
+### Subcategory
 ### Login(Authentication)
-### İlan
-### Hesap Kullanıcı/Admin/Misafir
-### Favori listesine ekleme
-### Premium satın alma
-### Dil seçeneği
-### Mesajlaşma
+### Advert
+### Addcommentadvert
+### Addfavoriteadvert
+### Languageoption
+### Admin/User
+### StandardUser
+
+
 
 ## Analysis
-### kullanıcı 1'den fazla ilan verebilir.
-### Premium kullanıcının ilan süresi daha uzundur.
-### Premium kullanıcının ilanı üst sırada sergilenir.
-### Admin Tüm kullanıcı yönetimini yapar
-### Kategoriler kendi içerisinde satılık ve kiralık olarak 2 kategoriye ayrılır.
-### Kullanıcı Dil seçeneğini yönetir
-### Misafir giriş ilan veremez
-### Misafir giriş favori listesi oluşturamaz
-### Misafir giriş mesajlaşamaz.
+### StandardUser can post advert more than 1.
+### StandardUser can add advert favoritelist
+### StandardUser can comment on all advert.
+### Admin can delete user
+### User/Admin can create StandardUser
+### User/Admin can update information of StandardUser.
+### Admin manage all users.
+
 
 ## Design
 
-![Used Staff Sale Application](https://user-images.githubusercontent.com/97551928/179251538-c7c12f7a-9a07-4e30-a7cb-a6f056c07937.jpg)
+
+![DatabaseRelation](https://user-images.githubusercontent.com/97551928/183254604-e1d1522d-f75f-4b0a-87c2-d2665727b773.PNG)
